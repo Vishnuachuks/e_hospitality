@@ -1,0 +1,145 @@
+]<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Prescribing</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<style>
+    body {
+            padding-top: 56px;
+            background-image: url('{% static "images/bg.jpg" %}');
+            background-size: cover; 
+            background-repeat: no-repeat; 
+            background-attachment: fixed; 
+        }
+        .container {
+            margin-top: 20px;
+        }
+        .navbar-logo {
+            height: 40px;
+            width: auto;
+        }
+    .btn-outline-primary a {
+            color: inherit; 
+            text-decoration: none; 
+        }
+
+        .btn-outline-primary:hover a {
+            color: white; 
+        }
+        .footer {
+            background-color: #f8f9fa;
+            padding: 20px 0;
+            text-align: center;
+            margin-top: 30px;
+        }
+        .navbar {
+        box-shadow: 0 4px 4px rgba(0,0,0,0.1);
+        background-image: linear-gradient(to right, #ffffff, #9feaff); 
+
+        }
+</style>
+<body>
+
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+        <img src="{% static 'images/logo-1.png' %}" alt="logo" class="navbar-logo">
+        <a class="navbar-brand" href="#">E-Hospitality</a>
+        
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'homepage' %}">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'patient_page' %}">Patient module</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'admin_page' %}">Admin module</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'doctor_page' %}">Doctor module</a>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0" autocomplete="off">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="searchInput">
+                <div id="suggestions" class="suggestions-dropdown"></div>
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+        </div>
+    </nav>
+
+
+    <div class="container content-section">
+        <h2>E-Prescribing Form</h2>
+        <form id="eprescribingForm" method="post" action="{% url 'submit_prescription' %}">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="patient">Patient</label>
+                <select class="form-control" id="patient" name="patient">
+                    {% for patient in patients %}
+                        <option value="{{ patient.id }}">{{ patient.first_name }} {{ patient.last_name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="medication">Medication</label>
+                <input type="text" class="form-control" id="medication" name="medication" required>
+            </div>
+            <div class="form-group">
+                <label for="dosage">Dosage</label>
+                <input type="text" class="form-control" id="dosage" name="dosage" required>
+            </div>
+            <div class="form-group">
+                <label for="instructions">Instructions</label>
+                <textarea class="form-control" id="instructions" name="instructions" rows="3" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="date">Date</label>
+                <input type="date" class="form-control" id="date" name="date" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit Prescription</button>
+        </form>
+    </div>
+
+
+<BR></BR>
+
+    <div class="container">
+        <h1>CHECK FOR DRUG INTERACTIONS</h1>
+        <br>
+        <button class="btn btn-outline-primary"><a href="https://www.webmd.com/interaction-checker">WebMD</a></button>
+        <button class="btn btn-outline-primary"><a href="https://go.drugbank.com/drug-interaction-checker">DrugBank</a></button>
+        <button class="btn btn-outline-primary"><a href="https://reference.medscape.com/drug-interactionchecker">Medscape</a></button>
+    </div>
+
+    <br><br>
+
+    <div class="container">
+        <h1>SEND PRESCRIPTIONS TO PHARMACIES</h1>
+        <div class="mb-3">
+            <label for="FormControlInput1" class="form-label">Email address</label>
+            <input type="email" class="form-control" id="FormControlInput1" placeholder="name@example.com">
+          </div>
+          <div class="mb-3">
+            <label for="FormControlTextarea1" class="form-label">Add prescriptions and medications</label>
+            <textarea class="form-control" id="FormControlTextarea1" rows="3" placeholder="Amoxicillin 500 mg"></textarea>
+          </div>
+    </div>
+
+    <div class="footer">
+        <p>&copy; 2024 E-Hospitality. All rights reserved.</p>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
+</body>
+</html>

@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homepage</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            padding-top: 56px;
+            background-image: url('{% static "images/bg.jpg" %}');
+            background-size: cover; 
+            background-repeat: no-repeat; 
+            background-attachment: fixed; 
+        }
+        .container {
+            margin-top: 20px;
+        }
+
+        .navbar {
+        box-shadow: 0 4px 4px rgba(0,0,0,0.1);
+        background-image: linear-gradient(to right, #ffffff, #9feaff); 
+
+        }
+        .navbar-logo {
+            height: 40px;
+            width: auto;
+        }
+        .hero-section {
+            background-color: #f8f9fa;
+            padding: 50px 0;
+            text-align: center;
+            background-image: url('{% static "images/bg.jpg" %}');
+            background-size: cover; 
+            background-repeat: no-repeat;
+            background-attachment: fixed; 
+        }
+        .hero-section h1 {
+            font-size: 3rem;
+            font-weight: bold;
+        }
+        .hero-section p {
+            font-size: 1.2rem;
+            margin-top: 10px;
+        }
+        .content-section {
+            padding: 30px 0;
+        }
+        .content-section h1 {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+        .content-section li {
+            margin-bottom: 10px;
+        }
+        .footer {
+            background-color: #f8f9fa;
+            padding: 20px 0;
+            text-align: center;
+            margin-top: 30px;
+        }
+        .suggestions-dropdown {
+            position: absolute;
+            z-index: 1000;
+            width: 100%;
+            background-color: white;
+            
+        }
+        .suggestion-item {
+            padding: 10px;
+           
+        }
+        .suggestion-item:hover {
+            background-color: #f8f9fa;
+        }
+
+        .nav-link:hover {
+            background-color: rgb(171, 255, 255);
+            border-radius: 10px;
+        } 
+        .nav-link:hover {
+            background-color: rgb(171, 255, 255);
+            border-radius: 10px;
+        } 
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+        <img src="{% static 'images/logo-1.png' %}" alt="logo" class="navbar-logo">
+        <a class="navbar-brand" href="#">E-Hospitality</a>
+        
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'homepage' %}">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'patient_page' %}">Patient module</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'admin_page' %}">Admin module</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'doctor_page' %}">Doctor module</a>
+                </li>
+            </ul>
+            {% if user.is_authenticated %}
+                    <form method="post" action="{% url 'logout' %}">
+                        {% csrf_token %}
+                        <button class="btn btn-outline-danger my-2 my-sm-0 mr-2" type="submit">Logout</button>
+                    </form>
+                {% else %}
+                    <a class="btn btn-outline-primary my-2 my-sm-0 mr-2" href="{% url 'login' %}">Login</a>
+                    <a class="btn btn-outline-primary my-2 my-sm-0 mr-2" href="{% url 'register' %}">Create Account</a>
+                {% endif %}
+            <form class="form-inline my-2 my-lg-0" autocomplete="off">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="searchInput">
+                <div id="suggestions" class="suggestions-dropdown"></div>
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="hero-section">
+        <h1>WELCOME TO E-HOSPITALITY</h1>
+        <p>Your comprehensive solution for managing healthcare services efficiently.</p>
+
+        
+
+    </div>
+
+    <!-- Main Content -->
+    <div class="container content-section">
+        {% if user.is_authenticated %}
+        <span class="navbar-text mr-2">Hello, {{ user.username }}</span>
+
+        {% endif %}
+
+        <h1>Overview</h1>
+        <p>An E-Hospitality system is a comprehensive digital platform designed to manage and streamline various aspects of healthcare services, ensuring efficient patient care, administrative tasks, and clinical operations. This system integrates different modules to facilitate seamless communication and operation within a healthcare facility. Below is a detailed description of the key components and functionalities of an E-Hospitality system:</p>
+        
+        <h1>Patient Module</h1>
+        <ul>
+            <li>Patient Registration: Allows new patients to register their details into the system, creating a unique patient profile.</li>
+            <li>Appointment Booking: Enables patients to book, reschedule, or cancel appointments with healthcare providers.</li>
+            <li>Medical History: Maintains a comprehensive record of a patient’s medical history, including past diagnoses, treatments, and medications.</li>
+            <li>Billing and Payments: Facilitates the generation of bills for services rendered and enables online payment options for patients.</li>
+            <li>Health Education Resources: Provides access to health education materials, such as articles and videos, to promote patient wellness and awareness.</li>
+        </ul>
+        
+        <h1>Doctor Module</h1>
+        <ul>
+            <li>Patient Management: Allows doctors to view and update patient records, including medical history and current treatment plans.</li>
+            <li>Appointment Schedule: Enables doctors to manage their appointment schedules, view upcoming appointments, and make necessary adjustments.</li>
+            <li>E-Prescribing: Facilitates the electronic generation and transmission of prescriptions to pharmacies, reducing errors and enhancing convenience for patients.</li>
+        </ul>
+
+        <h1>Key Features</h1>
+        <ul>
+            <li>Centralized Database: All patient and administrative data are stored in a centralized database, ensuring consistency and easy access to information.</li>
+            <li>User-Friendly Interface: Designed to be intuitive and easy to use, making it accessible for both medical and non-medical staff.</li>
+            <li>Data Security: Incorporates robust security measures to protect sensitive patient information and ensure compliance with healthcare regulations.</li>
+        </ul>
+
+        <h1>Use Cases</h1>
+        <ul>
+            <li>Hospitals: Comprehensive management of all hospital operations, from patient intake to discharge.</li>
+            <li>Clinics: Streamlined appointment scheduling, patient management, and billing for small to medium-sized clinics.</li>
+            <li>Telemedicine: Facilitates remote consultations and follow-ups, ensuring continuous patient care.</li>
+        </ul>
+
+        <h2>The E-Hospitality system aims to enhance the efficiency, accuracy, and quality of healthcare services, ultimately improving patient outcomes and satisfaction.</h2>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>&copy; 2024 E-Hospitality. All rights reserved.</p>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        document.getElementById('searchForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            performSearch();
+        });
+
+        function performSearch() {
+            var searchTerm = document.getElementById('searchInput').value;
+            fetch('/api/search/?query=' + searchTerm)
+                .then(response => response.json())
+                .then(data => {
+                    displayResults(data);
+                })
+                .catch(error => {
+                    console.error('Error searching:', error);
+                });
+        }
+
+        function displayResults(results) {
+            var resultsContainer = document.getElementById('searchResults');
+            resultsContainer.innerHTML = '';
+
+            results.forEach(result => {
+                var resultElement = document.createElement('div');
+                resultElement.textContent = result.title + ': ' + result.description;
+                resultsContainer.appendChild(resultElement);
+            });
+        }
+    </script>
+   
+</body>
+</html>

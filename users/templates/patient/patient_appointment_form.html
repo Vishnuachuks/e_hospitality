@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PATIENT APPOINTMENT</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            padding-top: 56px;
+            background-image: url('{% static "images/bg.jpg" %}');
+            background-size: cover; 
+            background-repeat: no-repeat; 
+            background-attachment: fixed; 
+        }
+        .container {
+            margin-top: 20px;
+        }
+        .navbar-logo {
+            height: 40px;
+            width: auto;
+        }
+        .hero-section {
+            background-color: #f8f9fa;
+            padding: 50px 0;
+            text-align: center;
+            border-radius: 10px;
+            background-image: url('{% static "images/bg.jpg" %}');
+            background-size: cover; 
+            background-repeat: no-repeat; 
+            background-attachment:inherit; 
+        }
+        .hero-section h1 {
+            font-size: 3rem;
+            font-weight: bold;
+        }
+        .hero-section p {
+            font-size: 1.2rem;
+            margin-top: 10px;
+        }
+        .content-section {
+            padding: 30px 0;
+        }
+        .content-section h2 {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+        .content-section li {
+            margin-bottom: 10px;
+        }
+        .footer {
+            background-color: #f8f9fa;
+            padding: 20px 0;
+            text-align: center;
+            margin-top: 30px;
+        }
+        .nav-link:hover {
+            background-color: rgb(171, 255, 255);
+            border-radius: 10px;
+        }
+        .navbar {
+            box-shadow: 0 4px 4px rgba(0,0,0,0.1);
+            background-image: linear-gradient(to right, #ffffff, #9feaff);
+        }
+        .view-button {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .form-container {
+            max-width: 600px;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+        <img src="{% static 'images/logo-1.png' %}" alt="logo" class="navbar-logo">
+        <a class="navbar-brand" href="#">E-Hospitality</a>
+        
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'homepage' %}">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'patient_page' %}">Patient Module</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'admin_page' %}">Admin Module</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'doctor_page' %}">Doctor Module</a>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container content-section">
+        <!-- Hero Section -->
+        <div class="hero-section">
+            <h1>Welcome to E-Hospitality</h1>
+            <p>Your trusted platform for healthcare management.</p>
+        </div>
+        <br>
+
+        <!-- Patient Appointment Form Section -->
+        <div class="form-container">
+            <h2>Patient Appointment Form</h2>
+            <form method="post" action="{% url 'appointment_form' %}" class="needs-validation" novalidate>
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+
+        <!-- View Appointments Button -->
+        <a href="{% url 'appointment_view' %}" class="view-button">View Appointment Details</a>
+    </div>
+
+    <div class="footer">
+        <p>&copy; 2024 E-Hospitality. All rights reserved.</p>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        (function () {
+            'use strict';
+            window.addEventListener('load', function () {
+                var forms = document.getElementsByClassName('needs-validation');
+                var validation = Array.prototype.filter.call(forms, function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (form.checkValidity() === false) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                });
+            }, false);
+        })();
+    </script>
+</body>
+</html>

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appointment Schedule - E-Hospitality</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    
+    <style>
+        
+        body {
+            padding-top: 56px;
+            background-image: url('{% static "images/bg.jpg" %}');
+            background-size: cover; 
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+        .container {
+            margin-top: 20px;
+        }
+        .navbar {
+            box-shadow: 0 4px 4px rgba(0,0,0,0.1);
+            background-image: linear-gradient(to right, #ffffff, #9feaff); 
+        }
+        .navbar-logo {
+            height: 40px;
+            width: auto;
+        }
+        .appointment-title {
+            text-align: center;
+            font-weight: bolder;
+            margin-bottom: 30px;
+            color: #000000; 
+        }
+        .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1); 
+            background-color: #fff; 
+            margin-bottom: 20px;
+        }
+        .card-body {
+            padding: 20px;
+        }
+        .card-title {
+            font-size: 24px;
+            color: #007bff; 
+            margin-bottom: 10px;
+        }
+        .card-text {
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+        .appointment-details {
+            margin-bottom: 20px;
+        }
+        .appointment-details li {
+            margin-bottom: 10px;
+        }
+        .btn-details {
+            background-color: #28a745; 
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+        .btn-details:hover {
+            background-color: #218838; 
+        }
+        .list-group-item {
+            border: none; 
+            padding: 15px;
+            background-color: #f8f9fa; 
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+        <img src="{% static 'images/logo-1.png' %}" alt="logo" class="navbar-logo">
+        <a class="navbar-brand" href="#">E-Hospitality</a>
+        
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'homepage' %}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'patient_page' %}">Patient Module</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'admin_page' %}">Admin Module</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'doctor_page' %}">Doctor Module</a>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0" autocomplete="off">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="searchInput">
+                <div id="suggestions" class="suggestions-dropdown"></div>
+                <button class="btn btn-primary my-2 my-sm-0" type="submit">Search</button>
+            </form>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+        <h1 class="appointment-title">APPOINTMENTS SCHEDULE</h1>
+        
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        {% for patient in patients %}
+                        <h2 class="card-title">Patient: {{ patient.first_name }} {{ patient.last_name }}</h2>
+                        <h3 class="card-text">DOB: {{ patient.date_of_birth }}</h3>
+                        <h3 class="card-text">Phone Number: {{ patient.phone_number }}</h3>
+                        <h3 class="card-text">Email ID: {{ patient.email }}</h3>
+                        {% for note in notes %}
+                        <h3 class="card-text">Notes: {{ note.notes }}</h3>
+                        {% endfor %}
+                        {% endfor %}
+                        {% for patient in patients %}
+                        <a href="{% url 'patient_detail' patient.id %}" class="btn btn-details">DETAILS</a>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Appointments list -->
+        <div class="row mt-4">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="card-title">Appointments:</h2>
+                        <ul class="list-group appointment-details">
+                            {% for appointment in appointments %}
+                            <li class="list-group-item">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <strong>Date and Time:</strong> {{ appointment.appointment_date }}<br>
+                                        <strong>Reason for Visit:</strong> {{ appointment.reason_for_visit }}
+                                    </div>
+                                </div>
+                            </li>
+                            {% empty %}
+                            <li class="list-group-item">No appointments scheduled.</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html

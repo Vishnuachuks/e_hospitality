@@ -1,0 +1,19 @@
+<!-- delete_user.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Delete Facility</title>
+</head>
+<body>
+    {% for  facility in facility %}
+    <h2>Delete User: {{ facility.username }}</h2>
+    <p>Are you sure you want to delete this user?</p>
+    <form method="post">
+        {% csrf_token %}
+        <input type="submit" value="Confirm Delete">
+        <a href="{% url 'admin_page' %}">Cancel</a>
+    </form>
+</body>
+</html>

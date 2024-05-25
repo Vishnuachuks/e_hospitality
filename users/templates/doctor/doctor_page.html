@@ -1,0 +1,220 @@
+
+<!DOCTYPE html>
+{% load static%}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOCTOR PAGE</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Include custom CSS (optional) -->
+    <style>
+        body {
+            padding-top: 56px;
+            background-image: url('{% static "images/bg.jpg" %}');
+            background-size: cover; /* Cover the entire background */
+            background-repeat: no-repeat; /* No repeating of the background image */
+            background-attachment: fixed; /* Adjust padding to match the height of the navbar */
+        }
+        .container {
+            margin-top: 20px;
+        }
+        .navbar-logo {
+            height: 40px;
+            width: auto;
+        }
+        .navbar-brand {
+            font-weight: bold;
+        }
+        .dashboard-title {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-top: 40px;
+        }
+        .table th, .table td {
+            vertical-align: middle;
+        }
+        .btn {
+            margin-right: 5px;
+        }
+        .footer {
+            background-color: #f8f9fa;
+            padding: 20px 0;
+            text-align: center;
+            margin-top: 30px;
+        }
+        .nav-link:hover {
+            background-color: rgb(171, 255, 255);
+            border-radius: 10px;
+        }
+        .navbar {
+        box-shadow: 0 4px 4px rgba(0,0,0,0.1);
+        background-image: linear-gradient(to right, #ffffff, #9feaff); 
+
+        }
+        
+        .dashboard-title {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-top: 40px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .btn-custom {
+            margin-top: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .btn-custom:hover {
+            background-color: #0056b3;
+        }
+        .footer {
+            background-color: #f8f9fa;
+            padding: 20px 0;
+            text-align: center;
+            margin-top: 30px;
+        }
+        .nav-link:hover {
+            background-color: rgb(171, 255, 255);
+            border-radius: 10px;
+        }
+        .navbar {
+            box-shadow: 0 4px 4px rgba(0,0,0,0.1);
+            background-image: linear-gradient(to right, #ffffff, #9feaff);
+        }
+        .form-container {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+        <a class="navbar-brand" href="#">
+            <img src="{% static 'images/logo-1.png' %}" alt="logo" class="navbar-logo"> E-Hospitality
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'homepage' %}">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'patient_page' %}">Patient Module</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'admin_page' %}">Admin Module</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'doctor_page' %}">Doctor Module</a>
+                </li>
+            </ul>
+            <form action="{% url 'doctor_login' %}" method="post" class="form-inline my-2 my-lg-0">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-outline-primary my-2 my-sm-0">login</button>
+            </form>
+            <form action="{% url 'doctor_logout' %}" method="post" class="form-inline my-2 my-lg-0">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-outline-danger my-2 my-sm-0">logout</button>
+            </form>
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+        </div>
+    </nav>
+
+    
+    <!-- Hero Section -->
+    <div class="hero-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12" style="text-align: center;">
+                    <h1>Welcome Doctors</h1>
+                    <p>Explore our healthcare services and manage patient interactions.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container">
+        <h2>Here Doctors can view patient details, appointments, and many more</h2>
+    </div>
+    <!-- Doctor Details Section -->
+    <div class="container">
+        <ul>
+            {% for doctor in doctors %}
+                <li>Welcome Dr. {{ doctor.first_name }} {{ doctor.last_name }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="container card-section">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Patient Management</h5>
+                        <p class="card-text">Access patient records, medical histories, and treatment plans to facilitate informed decision-making.</p>
+                        <a href="{% url 'patient_management' %}" class="btn btn-primary">Go to Patient Management</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Appointment Schedule -->
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Appointment Schedule</h5>
+                        <p class="card-text">View your schedule, appointment details, and patient information for efficient time management.</p>
+                        <a href="{% url 'appointment_view' %}" class="btn btn-primary">Go to Appointment Schedule</a>
+                    </div>
+                </div>
+            </div>
+            <!-- E-Prescribing -->
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">E-Prescribing</h5>
+                        <p class="card-text">Electronically prescribe medications, check for drug interactions, and send prescriptions directly to pharmacies.</p>
+                        <a href="{% url 'e_prescribing' %}" class="btn btn-primary">Go to E-Prescribing</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <div class="container">
+            <p>&copy; 2024 E-Hospitality. All rights reserved.</p>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

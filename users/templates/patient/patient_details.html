@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Details - E-Hospitality</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa; 
+            padding-top: 60px;
+            background-image: url('{% static "images/bg.jpg" %}');
+            background-size: cover; 
+            background-repeat: no-repeat; 
+            background-attachment: fixed;  
+        }
+        .navbar {
+            box-shadow: 0 4px 4px rgba(0,0,0,0.1);
+            background-image: linear-gradient(to right, #ffffff, #9feaff); 
+        }
+        .navbar-logo {
+            height: 40px;
+            width: auto;
+        }
+        .container {
+            max-width: 800px; 
+            margin-top: 30px;
+            margin-bottom: 30px;
+        }
+        .card {
+            margin-top: 20px;
+            border: 1px solid #ddd; 
+            border-radius: 10px; 
+        }
+        .card-title {
+            color: #007bff; 
+            font-size: 24px;
+            margin-bottom: 0.5rem;
+        }
+        .card-body {
+            padding: 1.25rem;
+        }
+        .card-text {
+            font-size: 18px;
+            margin-bottom: 0.5rem;
+        }
+        .action-buttons {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .action-buttons button {
+            margin-right: 10px;
+        }
+        .medical-history {
+            margin-top: 30px;
+        }
+        .medical-history .card-body {
+            padding-top: 1.5rem;
+            padding-bottom: 1.5rem;
+        }
+        hr {
+            border-top: 1px solid #ddd;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+        <img src="{% static 'images/logo-1.png' %}" alt="logo" class="navbar-logo">
+        <a class="navbar-brand" href="#">E-Hospitality</a>
+        
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'homepage' %}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'patient-page' %}">Patient Module</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'admin_page' %}">Admin Module</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'doctor-page' %}">Doctor Module</a>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0" autocomplete="off">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="searchInput">
+                <div id="suggestions" class="suggestions-dropdown"></div>
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+        <h1 class="text-center mb-5" style="font-weight: bold;">PATIENT DETAILS</h1>
+        
+        <div class="card">
+            <div class="card-body">
+                <h2 class="card-title">{{ patient.first_name }} {{ patient.last_name }}</h2>
+                <div class="row">
+                    <div class="col-md-6">
+                        <p class="card-text"><strong>Age:</strong> {{ patient.age }}</p>
+                        <p class="card-text"><strong>Email:</strong> {{ patient.email }}</p>
+                        <p class="card-text"><strong>Gender:</strong> {{ patient.get_gender_display }}</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p class="card-text"><strong>Date of Birth:</strong> {{ patient.date_of_birth }}</p>
+                        <p class="card-text"><strong>Phone Number:</strong> {{ patient.phone_number }}</p>
+                        <p class="card-text"><strong>Address:</strong> {{ patient.address }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer bg-white action-buttons">
+                <button class="btn btn-primary" onclick="window.location.href='tel:{{ patient.phone_number }}'">Call</button>
+                <button class="btn btn-success" onclick="window.location.href='mailto:{{ patient.email }}'">Email</button>
+            </div>
+        </div>
+
+        <!-- Medical History Section -->
+        <div class="card medical-history mt-4">
+            <div class="card-body">
+                <h3 class="card-title">Medical History</h3>
+                {% if medical_history %}
+                    {% for history in medical_history %}
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p class="card-text"><strong>Diagnosis:</strong> {{ history.diagnosis }}</p>
+                                <p class="card-text"><strong>Medications:</strong> {{ history.medications }}</p>
+                            </div>
+                            <div class="col-md-6">
+                                <p class="card-text"><strong>Allergies:</strong> {{ history.allergies }}</p>
+                                <p class="card-text"><strong>Treatment History:</strong> {{ history.treatment_history }}</p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p class="card-text">No medical history available.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

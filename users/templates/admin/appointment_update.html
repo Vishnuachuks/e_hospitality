@@ -1,0 +1,194 @@
+
+
+<!DOCTYPE html>
+{% load static%}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>APPOINTMENT UPDATE PAGE</title>
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    
+    <style>
+        body {
+            padding-top: 56px;
+            background-image: url('{% static "images/bg.jpg" %}');
+            background-size: cover; 
+            background-repeat: no-repeat; 
+            background-attachment: fixed; 
+        }
+        .container {
+            margin-top: 20px;
+        }
+        .navbar-logo {
+            height: 40px;
+            width: auto;
+        }
+        .navbar-brand {
+            font-weight: bold;
+        }
+        .dashboard-title {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-top: 40px;
+        }
+        .table th, .table td {
+            vertical-align: middle;
+        }
+        .btn {
+            margin-right: 5px;
+        }
+        .footer {
+            background-color: #f8f9fa;
+            padding: 20px 0;
+            text-align: center;
+            margin-top: 30px;
+        }
+        .nav-link:hover {
+            background-color: rgb(171, 255, 255);
+            border-radius: 10px;
+        }
+        .navbar {
+        box-shadow: 0 4px 4px rgba(0,0,0,0.1);
+        background-image: linear-gradient(to right, #ffffff, #9feaff); 
+
+        }
+    </style>
+</head>
+<body>
+    <style>
+        body {
+            padding-top: 56px;
+            background-image: url('{% static "images/bg.jpg" %}');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+        .form-container {
+            max-width: 600px;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .appointment-card {
+            margin-bottom: 20px;
+        }
+        .navbar-logo {
+            height: 40px;
+            width: auto;
+        }
+        .navbar-brand {
+            font-weight: bold;
+        }
+        .dashboard-title {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-top: 40px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .btn-custom {
+            margin-top: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .btn-custom:hover {
+            background-color: #0056b3;
+        }
+        .footer {
+            background-color: #f8f9fa;
+            padding: 20px 0;
+            text-align: center;
+            margin-top: 30px;
+        }
+        .nav-link:hover {
+            background-color: rgb(171, 255, 255);
+            border-radius: 10px;
+        }
+        .navbar {
+            box-shadow: 0 4px 4px rgba(0,0,0,0.1);
+            background-image: linear-gradient(to right, #ffffff, #9feaff);
+        }
+        .form-container {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+        <a class="navbar-brand" href="#">
+            <img src="{% static 'images/logo-1.png' %}" alt="logo" class="navbar-logo"> E-Hospitality
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'homepage' %}">Home </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'patient_page' %}">Patient Module</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'admin_page' %}">Admin Module <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'doctor_page' %}">Doctor Module</a>
+                </li>
+                <!-- Add more links for other forms if needed -->
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h2 class="text-center my-4">UPDATE APPOINTMENT DETAILS</h2>
+        <div class="form-container">
+            <form method="POST">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-primary btn-block">Update</button>
+            </form>
+        </div>
+
+        </div>
+    </div>
+    <div class="footer">
+        <p>&copy; 2024 E-Hospitality. All rights reserved.</p>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
+</body>
+</body>
+</html>

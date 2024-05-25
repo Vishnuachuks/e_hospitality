@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Education Resources</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            padding-top: 56px; 
+            font-family: 'Arial', sans-serif;
+            background-image: url('{% static "images/bg.jpg" %}');
+            background-size: cover; 
+            background-repeat: no-repeat; 
+            background-attachment: fixed; 
+        }
+        .navbar-logo {
+            height: 40px;
+            width: auto;
+        }
+        .hero-section {
+            background-color: #f8f9fa;
+            padding: 50px 0;
+            text-align: center;
+            background-image: url('{% static "images/bg.jpg" %}');
+            background-size: cover; 
+            background-repeat: no-repeat; 
+            background-attachment: fixed; 
+        
+        }
+        .hero-section h1 {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #333;
+        }
+        .hero-section p {
+            font-size: 1.2rem;
+            margin-top: 20px;
+            color: #555;
+        }
+        .content-section {
+            padding: 50px 0;
+            background-color: #fff;
+            box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            margin-bottom: 30px;
+            margin-right: 20px;
+            
+        }
+        .content-section h2 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .content-section p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            color: #666;
+        }
+        .resource-list {
+            margin-top: 30px;
+        }
+        .resource-list h3 {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 15px;
+        }
+        .resource-list ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        .resource-list li {
+            margin-bottom: 10px;
+            padding-left: 10px;
+            position: relative;
+        }
+        .resource-list li:before {
+            content: "\2022";
+            color: #007bff;
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            position: absolute;
+            left: 0;
+        }
+        .footer {
+            background-color: #f8f9fa;
+            padding: 20px 0;
+            text-align: center;
+        }
+        .nav-link:hover {
+            background-color: rgb(171, 255, 255);
+            border-radius: 10px;
+        }
+        .navbar {
+        box-shadow: 0 4px 4px rgba(0,0,0,0.1);
+        background-image: linear-gradient(to right, #ffffff, #9feaff); 
+
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+    <img src="{% static 'images/logo-1.png' %}" alt="logo" class="navbar-logo">
+    <a class="navbar-brand" href="#">E-Hospitality</a>
+    
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="{% url 'homepage' %}">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'patient_page' %}">Patient module</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'admin_page' %}">Admin module</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'doctor_page' %}">Doctor module</a>
+            </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+    </div>
+</nav>
+
+<div class="container">
+    
+    <div class="hero-section">
+        <h1>Health Education Resources</h1>
+        <p>Explore educational materials, health tips, and resources to improve wellness and prevent diseases.</p>
+    </div>
+    
+
+    <div class="content-section">
+        <div class="container">
+            <h2>Featured Articles</h2>
+            <p>Read in-depth articles on various health topics and stay informed about the latest medical research and recommendations.</p>
+            <div class="resource-list">
+                <h3>Latest Articles</h3>
+                <ul>
+                    <li><a href="#">Understanding Diabetes: Causes, Symptoms, and Treatment</a></li>
+                    <li><a href="#">Heart-Healthy Diet Tips: Foods to Include and Avoid</a></li>
+                    <li><a href="#">Exercise Guidelines for Beginners: Getting Started Safely</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="content-section">
+        <div class="container">
+            <h2>Health Tips</h2>
+            <p>Discover practical tips and advice to maintain a healthy lifestyle and prevent common health issues.</p>
+            <div class="resource-list">
+                <h3>Healthy Living Tips</h3>
+                <ul>
+                    <li><a href="#">Tips for Better Sleep: Improving Your Sleep Quality</a></li>
+                    <li><a href="#">Nutrition Basics: Building a Balanced Diet</a></li>
+                    <li><a href="#">Stress Management Techniques: Coping Strategies for Daily Life</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="content-section">
+        <div class="container">
+            <h2>Wellness Resources</h2>
+            <p>Access resources that promote overall wellness, including community health programs and support networks.</p>
+            <div class="resource-list">
+                <h3>Community Programs</h3>
+                <ul>
+                    <li><a href="#">Local Fitness Classes and Wellness Events</a></li>
+                    <li><a href="#">Support Groups for Chronic Conditions</a></li>
+                    <li><a href="#">Mental Health Services: Finding Support and Counseling</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6 mb-3 mb-sm-0">
+            <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">About E-hospitality</h5>
+                <p class="card-text">Click the link below to educate yourself with modern healthcare facilities</p>
+                <a href="#" class="btn btn-primary">E-HOSPITALITY</a>
+            </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">About our company</h5>
+                <p class="card-text">Click the link below to know more about our company policy and history.</p>
+                <a href="#" class="btn btn-primary">Learn more</a>
+            </div>
+            </div>
+        </div>
+        </div>
+</div>
+
+<div class="footer">
+    <div class="container">
+        <p>&copy; 2024 E-Hospitality. All rights reserved.</p>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

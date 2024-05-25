@@ -1,0 +1,21 @@
+<!-- delete_user.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Delete Patient</title>
+</head>
+<body>
+   
+    <h2>Delete User: {{ patient.first_name }}</h2>
+
+    <p>Are you sure you want to delete this user?</p>
+    <form method="post">
+        {% csrf_token %}
+        <input type="submit" value="Confirm Delete">
+        <a href="{% url 'admin_page' %}">Cancel</a>
+   
+    </form>
+</body>
+</html>
